@@ -20,8 +20,19 @@ object fondo{
 	
 }
 
-object instrucciones{
+object instruccione{
 	const image = "instrucciones.png"
+	const position = game.at(0,0)
+
+	method image() = image
+	
+	method position() = position
+	
+	
+}
+
+object instrucciones{
+	const image = "instruccionesSurvivalMode.png"
 	const position = game.at(0,0)
 
 	method image() = image

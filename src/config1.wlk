@@ -24,7 +24,7 @@ object modo{
 	}
 	
 	method configTablero(){
-		game.width(2000)
+		game.width(700)
 		game.height(1000)
 		game.cellSize(1)
 		
@@ -50,14 +50,26 @@ object modo{
 		})
 				
 		keyboard.right().onPressDo({
-			game.addVisual(instrucciones)
+			game.addVisual(instruccione)
 				
 		})	
 			
 		keyboard.left().onPressDo({
+			game.addVisual(instrucciones)
+			
+		})
+
+		keyboard.up().onPressDo({
 			game.removeVisual(instrucciones)
 			
 		})
+
+		keyboard.down().onPressDo({
+			game.removeVisual(instruccione)
+			
+		})
+
+	
 		
 		// Modos de juego
 		game.schedule(400,{
