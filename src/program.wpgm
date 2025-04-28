@@ -1,0 +1,12 @@
+import wollok.game.*
+import config1.*
+
+program juego{
+	/*          modo de juego por vidas*/
+	modo.configTablero()
+	
+	game.start()
+}
+
+
+

@@ -1,0 +1,117 @@
+import wollok.game.*
+import nave.*
+import letra.*
+import palabras.*
+import input.*
+import sonidoTipeo.*
+import listaNivel1.*
+import palabraFijada.*
+import fondo.*
+import score.*
+import barraDeVida.*
+import config1.*
+
+
+describe "Tests de palabras y sus posiciones" {
+	
+	const r = new Letra(letra = "r")
+	const procedure = new Palabra(letras = [new Letra(letra = "p"), 
+											r , 
+											new Letra(letra = "o"), 
+											new Letra(letra = "c"), 
+											new Letra(letra = "e"), 
+											new Letra(letra = "d"), 
+											new Letra(letra = "u"), 
+											new Letra(letra = "r"), 
+											new Letra(letra = "e")
+	])
+	
+	
+	test "procedure tiene letras" {
+		assert.that(procedure.tieneLetras())
+	}
+	
+	test "se tipea la p y ahora la primera letra es la r" {
+        lista1.palabrasCayendo().add(procedure) // Se agrega la p a la lista de palabras cayendo
+        palabraFijada.agregarPalabra(procedure) // Se fija la palabra procedure para que aparezca en en pantalla
+        procedure.aparecer()   					// se indica que la palabra procedure aparezca en pantalla
+        input.mapear("p") 						// se mapea el input "p"
+        palabraFijada.borrarLetraAcertada()		// si coincide el imput, se borra la instancia de letra que coincide con el input
+    	
+    	assert.equals(r, procedure.primerLetra())
+	}
+	
+	test "cuando se fija en el tablero,  la posición en el eje y de procedure empieza en 950" {
+		assert.equals(950, procedure.primerLetra().position().y())
+	}
+	
+	test "procedure no llegó al horizonte y no hay game over" {
+		assert.notThat(procedure.llegoAlHorizonte())
+	}
+	
+	test "procedure cae con estilo 22 veces y su posición en el eje y es 70" {
+		(1..22).forEach({p => procedure.caerConEstilo()})
+		assert.equals(70, procedure.primerLetra().position().y())
+	}
+		
+}
+
+describe "test de ubicacion de visaules en el juego" {
+	
+	test "La posición de la nave en el eje x es 235" {
+		assert.equals(235, nave.position().x())
+	}
+	
+	test "La posición de la nave en el eje y es 18" {
+		assert.equals(18, nave.position().y())
+	}
+}
+
+
+describe "Tests sobre perder una barra de vida" {
+	
+	const procedure = new Palabra(letras = [new Letra(letra = "p"), 
+											new Letra(letra = "r"), 
+											new Letra(letra = "o"), 
+											new Letra(letra = "c"), 
+											new Letra(letra = "e"), 
+											new Letra(letra = "d"), 
+											new Letra(letra = "u"), 
+											new Letra(letra = "r"), 
+											new Letra(letra = "e")
+	])
+	
+	test "La nave titila en blanco cuando hay tipeo correcto" {
+		nave.tipeo()
+		assert.equals("navetipeo.png", nave.image())
+	}
+	
+	test "La nave titila en rojo cuando hay error de tipeo" {
+		nave.error()
+		assert.equals("nave_dead.png", nave.image())
+	}
+	
+	test "La barra de vida pierde una barra cuando hay error de tipeo" {
+		nave.error()
+		assert.equals(17, barraDeVida.valor())
+	}
+	
+	test "procedure llegó al horizonte y hay game over" {
+		(1..22).forEach({p => procedure.caerConEstilo()})
+		assert.that(procedure.llegoAlHorizonte())
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
